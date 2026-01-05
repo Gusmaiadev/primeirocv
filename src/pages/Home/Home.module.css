@@ -1,0 +1,274 @@
+.page {
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+/* Hero */
+.hero {
+  padding: var(--spacing-16) var(--spacing-6);
+  text-align: center;
+  background: linear-gradient(180deg, var(--color-primary-light) 0%, var(--color-white) 100%);
+}
+
+.heroContent {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  color: var(--color-gray-900);
+  margin: var(--spacing-4) 0;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: var(--color-primary);
+}
+
+.heroSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-8);
+  line-height: 1.6;
+}
+
+.heroCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.heroNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
+
+/* Benefits */
+.benefits {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-white);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-gray-900);
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  text-align: center;
+  margin-top: calc(-1 * var(--spacing-8));
+  margin-bottom: var(--spacing-12);
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 640px) {
+  .benefitsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .benefitsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.benefitIcon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: var(--spacing-4);
+}
+
+.benefitTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-2);
+}
+
+.benefitDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+/* How it works */
+.howItWorks {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-gray-50);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-8);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .stepsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.step {
+  text-align: center;
+}
+
+.stepNumber {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-4);
+}
+
+.stepTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-2);
+}
+
+.stepDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+/* Pricing */
+.pricing {
+  padding: var(--spacing-16) 0;
+  background-color: var(--color-white);
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-6);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .plansGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.popularPlan {
+  border: 2px solid var(--color-primary);
+  position: relative;
+}
+
+.popularBadge {
+  position: absolute;
+  top: calc(-1 * var(--spacing-3));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.planName {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-4);
+}
+
+.planPrice {
+  margin-bottom: var(--spacing-6);
+}
+
+.priceValue {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.pricePeriod {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-1);
+}
+
+.planFeatures {
+  list-style: none;
+  margin: 0 0 var(--spacing-6);
+  padding: 0;
+}
+
+.planFeature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-3);
+}
+
+.checkIcon {
+  color: var(--color-success);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* CTA */
+.cta {
+  padding: var(--spacing-16) 0;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-white);
+  margin: 0 0 var(--spacing-3);
+}
+
+.ctaSubtitle {
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 var(--spacing-8);
+}
+
+.cta button {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+}
+
+.cta button:hover {
+  background-color: var(--color-gray-100);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+}

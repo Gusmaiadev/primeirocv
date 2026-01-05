@@ -1,0 +1,65 @@
+.wrapper {
+  width: 100%;
+}
+
+.labelWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.percentage {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+.track {
+  width: 100%;
+  background-color: var(--color-gray-200);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+/* Sizes */
+.sm {
+  height: 4px;
+}
+
+.md {
+  height: 8px;
+}
+
+.lg {
+  height: 12px;
+}
+
+/* Bar */
+.bar {
+  height: 100%;
+  border-radius: var(--border-radius-full);
+  transition: width var(--transition-slow);
+}
+
+.bar-default {
+  background-color: var(--color-primary);
+}
+
+.bar-success {
+  background-color: var(--color-success);
+}
+
+.bar-warning {
+  background-color: var(--color-warning);
+}
+
+.bar-error {
+  background-color: var(--color-error);
+}

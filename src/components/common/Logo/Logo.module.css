@@ -1,0 +1,48 @@
+.link {
+  text-decoration: none;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.icon {
+  display: flex;
+}
+
+.text {
+  letter-spacing: -0.5px;
+}
+
+.highlight {
+  color: var(--color-primary);
+}
+
+/* Sizes */
+.sm {
+  font-size: var(--font-size-lg);
+}
+
+.sm .icon {
+  font-size: var(--font-size-xl);
+}
+
+.md {
+  font-size: var(--font-size-xl);
+}
+
+.md .icon {
+  font-size: var(--font-size-2xl);
+}
+
+.lg {
+  font-size: var(--font-size-3xl);
+}
+
+.lg .icon {
+  font-size: var(--font-size-4xl);
+}

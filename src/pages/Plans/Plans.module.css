@@ -1,0 +1,91 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--spacing-12) var(--spacing-6);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-12);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-2);
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-6);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.popular {
+  border: 2px solid var(--color-primary);
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: calc(-1 * var(--spacing-3));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.planName {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-4);
+}
+
+.price {
+  margin-bottom: var(--spacing-6);
+}
+
+.priceValue {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.pricePeriod {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-1);
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-6);
+}
+
+.features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-3);
+}
+
+.check {
+  color: var(--color-success);
+  font-weight: 600;
+}

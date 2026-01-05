@@ -1,0 +1,107 @@
+/* Loading Component Styles */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
+/* Overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: var(--z-modal);
+}
+
+/* Spinner */
+.loading-spinner {
+  animation: loading-rotate 1s linear infinite;
+  color: var(--color-primary);
+}
+
+.loading-spinner-track {
+  opacity: 0.2;
+}
+
+.loading-spinner-head {
+  opacity: 1;
+}
+
+/* Sizes */
+.loading--sm .loading-spinner {
+  width: 20px;
+  height: 20px;
+}
+
+.loading--md .loading-spinner {
+  width: 32px;
+  height: 32px;
+}
+
+.loading--lg .loading-spinner {
+  width: 48px;
+  height: 48px;
+}
+
+/* Dots */
+.loading-dots {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  animation: loading-bounce 1.4s ease-in-out infinite both;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.loading--sm .loading-dot {
+  width: 6px;
+  height: 6px;
+}
+
+.loading--lg .loading-dot {
+  width: 12px;
+  height: 12px;
+}
+
+/* Text */
+.loading-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: 0;
+}
+
+/* Animations */
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,28 @@
+.container {
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-2);
+}
+
+.subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-600);
+  margin: 0 0 var(--spacing-8);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.note {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-6) 0 0;
+}
