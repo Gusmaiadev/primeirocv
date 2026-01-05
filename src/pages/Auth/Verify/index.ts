@@ -1,2 +1,1 @@
-export { Auth } from './Auth';
 export { Verify } from './Verify';

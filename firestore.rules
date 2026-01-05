@@ -1,0 +1,147 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // FUNÇÕES AUXILIARES
+    // ============================================
+    
+    // Verifica se usuário está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Verifica se é o próprio usuário
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Verifica se documento pertence ao usuário
+    function isDocumentOwner() {
+      return isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+    
+    // Verifica se novo documento será do usuário
+    function willBeOwner() {
+      return isAuthenticated() && request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Verifica se usuário tem plano ativo
+    function hasActivePlan() {
+      return isAuthenticated() 
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.plan != null
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.plan.expiresAt > request.time;
+    }
+    
+    // Obtém tipo do plano do usuário
+    function getUserPlanType() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.plan.type;
+    }
+    
+    // ============================================
+    // REGRAS PARA USUÁRIOS
+    // ============================================
+    
+    match /users/{userId} {
+      // Leitura: apenas próprio usuário
+      allow read: if isOwner(userId);
+      
+      // Criação: apenas próprio usuário (via auth)
+      allow create: if isOwner(userId) 
+        && request.resource.data.keys().hasAll(['email', 'createdAt', 'lastLoginAt'])
+        && request.resource.data.plan == null;
+      
+      // Atualização: próprio usuário pode atualizar campos básicos
+      // Plano só pode ser atualizado por Cloud Functions (admin)
+      allow update: if isOwner(userId)
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['plan']))
+        || (request.auth.token.admin == true);
+      
+      // Deleção: não permitida (soft delete via Cloud Functions)
+      allow delete: if false;
+    }
+    
+    // ============================================
+    // REGRAS PARA CURRÍCULOS
+    // ============================================
+    
+    match /resumes/{resumeId} {
+      // Leitura: apenas dono do currículo
+      allow read: if isDocumentOwner();
+      
+      // Criação: usuário autenticado, documento pertence a ele
+      allow create: if willBeOwner()
+        && request.resource.data.keys().hasAll([
+          'userId', 'isBase', 'personalData', 'objective', 
+          'education', 'experiences', 'skills', 'additionalInfo',
+          'score', 'scoreDetails', 'createdAt', 'updatedAt'
+        ]);
+      
+      // Atualização: apenas dono, não pode mudar userId
+      allow update: if isDocumentOwner()
+        && request.resource.data.userId == resource.data.userId;
+      
+      // Deleção: apenas dono
+      allow delete: if isDocumentOwner();
+    }
+    
+    // ============================================
+    // REGRAS PARA USO DE IA
+    // ============================================
+    
+    match /ai_usage/{usageId} {
+      // Leitura: apenas dono
+      allow read: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+      
+      // Criação: via Cloud Functions apenas
+      allow create: if false;
+      
+      // Atualização: via Cloud Functions apenas
+      allow update: if false;
+      
+      // Deleção: não permitida
+      allow delete: if false;
+    }
+    
+    // ============================================
+    // REGRAS PARA PAGAMENTOS
+    // ============================================
+    
+    match /payments/{paymentId} {
+      // Leitura: apenas dono
+      allow read: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+      
+      // Criação/Atualização/Deleção: via Cloud Functions apenas (webhook)
+      allow create, update, delete: if false;
+    }
+    
+    // ============================================
+    // REGRAS PARA CARTAS DE APRESENTAÇÃO
+    // ============================================
+    
+    match /cover_letters/{letterId} {
+      // Leitura: apenas dono
+      allow read: if isDocumentOwner();
+      
+      // Criação: usuário com plano que permite
+      allow create: if willBeOwner() && hasActivePlan();
+      
+      // Atualização: apenas dono
+      allow update: if isDocumentOwner();
+      
+      // Deleção: apenas dono
+      allow delete: if isDocumentOwner();
+    }
+    
+    // ============================================
+    // BLOQUEIA TUDO MAIS
+    // ============================================
+    
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

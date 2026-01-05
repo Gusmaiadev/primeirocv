@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { MainLayout, AuthLayout, EditorLayout } from '@/layouts';
-import { LoadingOverlay } from '@/components/ui';
+import { LoadingOverlay, ProtectedRoute } from '@/components';
 
 // Lazy loading das páginas
 const Home = lazy(() => import('@/pages/Home').then((m) => ({ default: m.Home })));
@@ -9,6 +9,7 @@ const Editor = lazy(() => import('@/pages/Editor').then((m) => ({ default: m.Edi
 const Preview = lazy(() => import('@/pages/Preview').then((m) => ({ default: m.Preview })));
 const Plans = lazy(() => import('@/pages/Plans').then((m) => ({ default: m.Plans })));
 const Auth = lazy(() => import('@/pages/Auth').then((m) => ({ default: m.Auth })));
+const Verify = lazy(() => import('@/pages/Auth').then((m) => ({ default: m.Verify })));
 const Dashboard = lazy(() => import('@/pages/Dashboard').then((m) => ({ default: m.Dashboard })));
 const NotFound = lazy(() => import('@/pages/NotFound').then((m) => ({ default: m.NotFound })));
 
@@ -47,7 +48,9 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: (
           <SuspenseWrapper>
-            <Dashboard />
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
           </SuspenseWrapper>
         ),
       },
@@ -87,6 +90,14 @@ const router = createBrowserRouter([
           </SuspenseWrapper>
         ),
       },
+      {
+        path: 'verify',
+        element: (
+          <SuspenseWrapper>
+            <Verify />
+          </SuspenseWrapper>
+        ),
+      },
     ],
   },
   {
@@ -110,5 +121,6 @@ export const ROUTES = {
   PREVIEW: '/editor/preview',
   PLANS: '/plans',
   AUTH: '/auth',
+  AUTH_VERIFY: '/auth/verify',
   DASHBOARD: '/dashboard',
 } as const;

@@ -18,7 +18,7 @@ const getEnvVar = (key: string, required = true): string => {
   return value ?? '';
 };
 
-// Configuração do Firebase (será usada na Etapa 3)
+// Configuração do Firebase
 export const firebaseConfig = {
   apiKey: getEnvVar('VITE_FIREBASE_API_KEY', false),
   authDomain: getEnvVar('VITE_FIREBASE_AUTH_DOMAIN', false),
@@ -43,4 +43,10 @@ export const isFirebaseConfigured = (): boolean => {
     firebaseConfig.authDomain &&
     firebaseConfig.projectId
   );
+};
+
+// Configuração de Email Link
+export const actionCodeSettings = {
+  url: `${appConfig.url}/auth/verify`,
+  handleCodeInApp: true,
 };

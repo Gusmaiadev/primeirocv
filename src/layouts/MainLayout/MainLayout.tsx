@@ -1,9 +1,21 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { Logo } from '@/components/common';
 import { Button } from '@/components/ui';
+import { useAuth } from '@/contexts';
 import styles from './MainLayout.module.css';
 
 export function MainLayout() {
+  const navigate = useNavigate();
+  const { isAuthenticated, user, signOut, loading } = useAuth();
+
+  const handleAuthAction = async () => {
+    if (isAuthenticated) {
+      await signOut();
+    } else {
+      navigate('/auth');
+    }
+  };
+
   return (
     <div className={styles.layout}>
       <header className={styles.header}>
@@ -13,7 +25,20 @@ export function MainLayout() {
             <Link to="/plans" className={styles.navLink}>
               Planos
             </Link>
-            <Button size="sm" onClick={() => window.location.href = '/editor'}>
+            {isAuthenticated && (
+              <Link to="/dashboard" className={styles.navLink}>
+                Meus Currículos
+              </Link>
+            )}
+            <Button
+              size="sm"
+              variant={isAuthenticated ? 'ghost' : 'outline'}
+              onClick={handleAuthAction}
+              loading={loading}
+            >
+              {isAuthenticated ? (user?.displayName || 'Sair') : 'Entrar'}
+            </Button>
+            <Button size="sm" onClick={() => navigate('/editor')}>
               Criar Currículo
             </Button>
           </nav>
