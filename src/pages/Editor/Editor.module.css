@@ -1,6 +1,39 @@
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+}
+
+.card {
+  min-height: 400px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--spacing-6);
+  padding-top: var(--spacing-6);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.actionsLeft,
+.actionsRight {
+  flex: 1;
+}
+
+.actionsRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actionsCenter {
+  flex: 1;
+  text-align: center;
+}
+
+.savedAt {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-400);
 }
 
 .title {
