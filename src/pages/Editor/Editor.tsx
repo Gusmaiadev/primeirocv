@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Card } from '@/components/ui';
-import { useResumeEditor } from './hooks';
+import { useEditorContext } from '@/contexts';
 import {
   StepNavigation,
   PersonalDataStep,
@@ -14,7 +14,7 @@ import styles from './Editor.module.css';
 
 export function Editor() {
   const navigate = useNavigate();
-  const editor = useResumeEditor();
+  const editor = useEditorContext();
 
   const renderStep = () => {
     switch (editor.currentStep) {

@@ -142,3 +142,6 @@ export const isEmptyObject = (obj: object): boolean => {
 export const deepClone = <T>(obj: T): T => {
   return JSON.parse(JSON.stringify(obj)) as T;
 };
+
+// Re-export score utils
+export { calculateResumeScore, getScoreClassification } from './score';

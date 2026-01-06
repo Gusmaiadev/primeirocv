@@ -1,0 +1,259 @@
+/* ============================================
+   PRIMEIROCV - TEMPLATE ATS-SAFE
+   Design limpo e linear para máxima compatibilidade
+   ============================================ */
+
+.resume {
+  background-color: var(--color-white);
+  padding: var(--spacing-8);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--border-radius-lg);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 11pt;
+  line-height: 1.5;
+  color: var(--color-gray-800);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header / Dados Pessoais */
+.header {
+  text-align: center;
+  padding-bottom: var(--spacing-4);
+  border-bottom: 2px solid var(--color-gray-900);
+  margin-bottom: var(--spacing-4);
+}
+
+.name {
+  font-size: 22pt;
+  font-weight: 700;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-4);
+  font-size: 10pt;
+  color: var(--color-gray-700);
+}
+
+.contactItem {
+  white-space: nowrap;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-2);
+  font-size: 10pt;
+  color: var(--color-gray-600);
+}
+
+.linkItem {
+  white-space: nowrap;
+}
+
+/* Seções */
+.section {
+  margin-bottom: var(--spacing-5);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--color-gray-900);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--color-gray-300);
+  padding-bottom: var(--spacing-1);
+  margin: 0 0 var(--spacing-3);
+}
+
+/* Objetivo */
+.objectiveText {
+  margin: 0;
+  text-align: justify;
+  color: var(--color-gray-700);
+}
+
+/* Entradas (formação, experiência, etc) */
+.entry {
+  margin-bottom: var(--spacing-4);
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.entryTitle {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.entryDate {
+  font-size: 10pt;
+  color: var(--color-gray-500);
+  flex-shrink: 0;
+}
+
+.entrySubtitle {
+  font-size: 10pt;
+  color: var(--color-gray-600);
+  margin: var(--spacing-1) 0 0;
+  font-style: italic;
+}
+
+.entryDescription {
+  font-size: 10pt;
+  color: var(--color-gray-700);
+  margin: var(--spacing-2) 0 0;
+  text-align: justify;
+}
+
+.highlights {
+  margin: var(--spacing-2) 0 0;
+  padding-left: var(--spacing-5);
+  font-size: 10pt;
+  color: var(--color-gray-700);
+}
+
+.highlights li {
+  margin-bottom: var(--spacing-1);
+}
+
+/* Habilidades */
+.skillsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.skillCategory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  align-items: baseline;
+}
+
+.skillCategoryTitle {
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin: 0;
+  min-width: 120px;
+}
+
+.skillCategoryTitle::after {
+  content: ':';
+}
+
+.skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  flex: 1;
+}
+
+.skillItem {
+  font-size: 10pt;
+  color: var(--color-gray-700);
+}
+
+.skillItem::after {
+  content: ' •';
+  color: var(--color-gray-400);
+}
+
+.skillItem:last-child::after {
+  content: '';
+}
+
+.skillLevel {
+  font-size: 9pt;
+  color: var(--color-gray-500);
+}
+
+/* Estado vazio */
+.empty {
+  text-align: center;
+  padding: var(--spacing-12) var(--spacing-6);
+  color: var(--color-gray-400);
+}
+
+.empty p {
+  margin: var(--spacing-2) 0;
+}
+
+/* Print styles */
+@media print {
+  .resume {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    font-size: 10pt;
+  }
+
+  .name {
+    font-size: 18pt;
+  }
+
+  .sectionTitle {
+    font-size: 11pt;
+  }
+
+  .section {
+    page-break-inside: avoid;
+  }
+}
+
+/* Responsivo */
+@media (max-width: 640px) {
+  .resume {
+    padding: var(--spacing-4);
+    font-size: 10pt;
+  }
+
+  .name {
+    font-size: 18pt;
+  }
+
+  .contact {
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+
+  .entryHeader {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .skillCategory {
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+
+  .skillCategoryTitle {
+    min-width: auto;
+  }
+}

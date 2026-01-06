@@ -1,16 +1,19 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Logo } from '@/components/common';
 import { Button, Progress } from '@/components/ui';
+import { EditorProvider } from '@/contexts';
 import styles from './EditorLayout.module.css';
 
-interface EditorLayoutProps {
-  currentStep?: number;
-  totalSteps?: number;
-}
-
-export function EditorLayout({ currentStep = 1, totalSteps = 6 }: EditorLayoutProps) {
+function EditorLayoutContent() {
   const navigate = useNavigate();
-  const progress = (currentStep / totalSteps) * 100;
+  const location = useLocation();
+  
+  // Se está na preview, mostrar progresso completo
+  const isPreview = location.pathname.includes('/preview');
+  
+  // Por enquanto, mostrar progresso baseado na rota
+  // O componente Editor vai gerenciar o step real internamente
+  const progress = isPreview ? 100 : 0;
 
   return (
     <div className={styles.layout}>
@@ -21,17 +24,27 @@ export function EditorLayout({ currentStep = 1, totalSteps = 6 }: EditorLayoutPr
             Sair
           </Button>
         </div>
-        <div className={styles.progress}>
-          <Progress value={progress} size="sm" />
-          <span className={styles.progressText}>
-            Etapa {currentStep} de {totalSteps}
-          </span>
-        </div>
+        {!isPreview && (
+          <div className={styles.progress}>
+            <Progress value={progress} size="sm" />
+            <span className={styles.progressText}>
+              Editor de Currículo
+            </span>
+          </div>
+        )}
       </header>
 
       <main className={styles.main}>
         <Outlet />
       </main>
     </div>
+  );
+}
+
+export function EditorLayout() {
+  return (
+    <EditorProvider>
+      <EditorLayoutContent />
+    </EditorProvider>
   );
 }

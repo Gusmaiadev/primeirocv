@@ -1,0 +1,153 @@
+.card {
+  position: sticky;
+  top: var(--spacing-6);
+}
+
+.header {
+  margin-bottom: var(--spacing-4);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+  text-align: center;
+}
+
+/* Score Circle */
+.scoreCircle {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto var(--spacing-4);
+}
+
+.circleSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.progressCircle {
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.scoreValue {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.scoreNumber {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.scoreMax {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-400);
+}
+
+/* Classification */
+.classification {
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.classificationLabel {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.classificationDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: var(--spacing-1) 0 0;
+}
+
+/* Breakdown */
+.breakdown {
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.breakdownTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin: 0 0 var(--spacing-3);
+}
+
+.breakdownItem {
+  margin-bottom: var(--spacing-3);
+}
+
+.breakdownItem:last-child {
+  margin-bottom: 0;
+}
+
+.breakdownHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-1);
+}
+
+.breakdownLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+}
+
+.breakdownValue {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+}
+
+/* Suggestions */
+.suggestions {
+  margin-top: var(--spacing-6);
+  padding: var(--spacing-4);
+  background-color: var(--color-warning-light);
+  border-radius: var(--border-radius-lg);
+}
+
+.suggestionsTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-gray-800);
+  margin: 0 0 var(--spacing-2);
+}
+
+.suggestionsList {
+  margin: 0;
+  padding-left: var(--spacing-4);
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-700);
+}
+
+.suggestionsList li {
+  margin-bottom: var(--spacing-1);
+}
+
+.suggestionsList li:last-child {
+  margin-bottom: 0;
+}
+
+.improveButton {
+  display: block;
+  width: 100%;
+  margin-top: var(--spacing-3);
+  padding: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  background: none;
+  text-align: center;
+  transition: color var(--transition-fast);
+}
+
+.improveButton:hover {
+  color: var(--color-primary-dark);
+}
