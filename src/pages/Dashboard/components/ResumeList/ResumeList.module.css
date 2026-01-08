@@ -1,0 +1,128 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.resumeCard {
+  transition: all var(--transition-fast);
+}
+
+.resumeCard:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.resumeContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.resumeInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.resumeHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.resumeName {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.resumeMeta {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin: var(--spacing-1) 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resumeDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-400);
+  margin: var(--spacing-1) 0 0;
+}
+
+.resumeActions {
+  display: flex;
+  gap: var(--spacing-1);
+  flex-shrink: 0;
+}
+
+/* Empty state */
+.emptyCard {
+  text-align: center;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-4);
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: var(--spacing-4);
+}
+
+.emptyTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 var(--spacing-2);
+}
+
+.emptyText {
+  font-size: var(--font-size-base);
+  color: var(--color-gray-500);
+  margin: 0 0 var(--spacing-6);
+  max-width: 300px;
+}
+
+@media (max-width: 640px) {
+  .resumeContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resumeActions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: var(--spacing-3);
+    padding-top: var(--spacing-3);
+    border-top: 1px solid var(--color-gray-100);
+  }
+}
