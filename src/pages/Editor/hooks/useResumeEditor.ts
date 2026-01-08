@@ -2,7 +2,7 @@
 // PRIMEIROCV - HOOK DO EDITOR DE CURRÍCULOS
 // ============================================
 
-import { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useLocalStorage } from '@/hooks';
 import { useAuth } from '@/contexts';
 import { createResume, updateResume, getBaseResume } from '@/services/firebase';
@@ -140,10 +140,14 @@ export function useResumeEditor(): UseResumeEditorReturn {
   // AUTO-SAVE NO LOCALSTORAGE
   // ============================================
 
+  // Ref para armazenar o state atual sem causar re-render
+  const stateRef = React.useRef(state);
+  stateRef.current = state;
+
   useEffect(() => {
     if (state.isDirty) {
       const timeoutId = setTimeout(() => {
-        setSavedDraft(state);
+        setSavedDraft(stateRef.current);
         setState((prev) => ({
           ...prev,
           isDirty: false,
@@ -154,7 +158,7 @@ export function useResumeEditor(): UseResumeEditorReturn {
       return () => clearTimeout(timeoutId);
     }
     return undefined;
-  }, [state, setSavedDraft]);
+  }, [state.isDirty, setSavedDraft]);
 
   // ============================================
   // CARREGAR DO FIRESTORE

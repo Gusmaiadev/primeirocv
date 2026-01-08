@@ -91,6 +91,15 @@
   border-radius: var(--border-radius-lg);
 }
 
+/* Error */
+.error {
+  padding: var(--spacing-3);
+  background-color: var(--color-error-light);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
 .tipsTitle {
   font-size: var(--font-size-sm);
   font-weight: 600;

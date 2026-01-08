@@ -11,7 +11,7 @@ import type {
   Skill,
   AdditionalInfo,
 } from '@/types';
-import { ResumePreview, ScoreCard } from './components';
+import { ResumePreview, ScoreCard, AIAnalysis } from './components';
 import styles from './Preview.module.css';
 
 // Tipo do estado salvo no localStorage
@@ -119,6 +119,13 @@ export function Preview() {
 
         <aside className={styles.sidebar}>
           <ScoreCard score={score} onImprove={handleImprove} />
+          <AIAnalysis
+            personalData={resumeData.personalData}
+            objective={resumeData.objective}
+            education={resumeData.education}
+            experiences={resumeData.experiences}
+            skills={resumeData.skills}
+          />
         </aside>
       </div>
     </div>

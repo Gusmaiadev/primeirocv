@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Input, TextArea, Button, Badge } from '@/components/ui';
+import { generateObjective, isAIConfigured } from '@/services/ai';
+import { useEditorContext } from '@/contexts';
 import type { ProfessionalObjective } from '@/types';
 import styles from './ObjectiveStep.module.css';
 
@@ -9,23 +11,36 @@ interface ObjectiveStepProps {
   errors?: Partial<Record<keyof ProfessionalObjective, string>>;
 }
 
-const EXAMPLE_OBJECTIVES = [
-  'Busco uma oportunidade de estágio na área de tecnologia onde possa aplicar meus conhecimentos em programação e contribuir para o crescimento da empresa enquanto desenvolvo minhas habilidades profissionais.',
-  'Jovem aprendiz em busca da primeira experiência profissional, com grande disposição para aprender e contribuir com a equipe. Possuo boa comunicação, responsabilidade e vontade de crescer.',
-  'Estudante de Administração buscando estágio na área administrativa. Organizado, proativo e com conhecimentos em Excel e atendimento ao cliente.',
-];
-
 export function ObjectiveStep({ data, onChange, errors = {} }: ObjectiveStepProps) {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+  const editor = useEditorContext();
 
   const handleGenerateWithAI = async () => {
+    if (!isAIConfigured()) {
+      setAiError('IA não configurada. Configure a VITE_GEMINI_API_KEY.');
+      return;
+    }
+
     setIsGenerating(true);
-    // Simular geração por IA (será implementado na etapa de IA)
-    setTimeout(() => {
-      const randomExample = EXAMPLE_OBJECTIVES[Math.floor(Math.random() * EXAMPLE_OBJECTIVES.length)];
-      onChange({ text: randomExample, generatedByAI: true });
+    setAiError(null);
+
+    try {
+      const generatedText = await generateObjective({
+        personalData: editor.personalData,
+        targetPosition: data.targetPosition,
+        education: editor.education,
+        experiences: editor.experiences,
+        skills: editor.skills,
+      });
+
+      onChange({ text: generatedText, generatedByAI: true });
+    } catch (error) {
+      console.error('Erro ao gerar objetivo:', error);
+      setAiError(error instanceof Error ? error.message : 'Erro ao gerar objetivo');
+    } finally {
       setIsGenerating(false);
-    }, 1500);
+    }
   };
 
   const characterCount = data.text.length;
@@ -98,10 +113,17 @@ export function ObjectiveStep({ data, onChange, errors = {} }: ObjectiveStepProp
             variant="secondary"
             onClick={handleGenerateWithAI}
             loading={isGenerating}
+            disabled={!isAIConfigured()}
           >
             Gerar com IA
           </Button>
         </div>
+
+        {aiError && (
+          <div className={styles.error}>
+            ⚠️ {aiError}
+          </div>
+        )}
 
         <div className={styles.tips}>
           <h4 className={styles.tipsTitle}>💡 Dicas</h4>

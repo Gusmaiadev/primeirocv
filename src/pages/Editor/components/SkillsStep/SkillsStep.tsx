@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button, Input, Select, Modal, Badge } from '@/components/ui';
 import { SKILL_LEVEL_OPTIONS, SKILL_CATEGORY_OPTIONS } from '@/constants';
+import { suggestSkills, isAIConfigured } from '@/services/ai';
+import { useEditorContext } from '@/contexts';
 import type { Skill } from '@/types';
 import styles from './SkillsStep.module.css';
 
@@ -9,6 +11,12 @@ interface SkillsStepProps {
   onAdd: (skill: Omit<Skill, 'id'>) => void;
   onUpdate: (id: string, data: Partial<Skill>) => void;
   onRemove: (id: string) => void;
+}
+
+interface AISuggestion {
+  name: string;
+  category: 'technical' | 'soft' | 'language' | 'tool';
+  reason: string;
 }
 
 const emptySkill: Omit<Skill, 'id'> = {
@@ -28,6 +36,48 @@ export function SkillsStep({ data, onAdd, onUpdate, onRemove }: SkillsStepProps)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Omit<Skill, 'id'>>(emptySkill);
+  
+  // AI suggestions state
+  const [aiSuggestions, setAiSuggestions] = useState<AISuggestion[]>([]);
+  const [isLoadingAI, setIsLoadingAI] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+  
+  const editor = useEditorContext();
+
+  const handleGetAISuggestions = async () => {
+    if (!isAIConfigured()) {
+      setAiError('IA não configurada');
+      return;
+    }
+
+    setIsLoadingAI(true);
+    setAiError(null);
+
+    try {
+      const suggestions = await suggestSkills({
+        targetPosition: editor.objective.targetPosition,
+        education: editor.education,
+        experiences: editor.experiences,
+        currentSkills: data,
+      });
+      setAiSuggestions(suggestions);
+    } catch (err) {
+      console.error('Erro ao buscar sugestões:', err);
+      setAiError(err instanceof Error ? err.message : 'Erro ao buscar sugestões');
+    } finally {
+      setIsLoadingAI(false);
+    }
+  };
+
+  const handleAddAISuggestion = (suggestion: AISuggestion) => {
+    onAdd({
+      name: suggestion.name,
+      level: 'intermediate',
+      category: suggestion.category,
+    });
+    // Remover da lista de sugestões
+    setAiSuggestions(prev => prev.filter(s => s.name !== suggestion.name));
+  };
 
   const handleOpenModal = (skill?: Skill) => {
     if (skill) {
@@ -138,6 +188,53 @@ export function SkillsStep({ data, onAdd, onUpdate, onRemove }: SkillsStepProps)
             ))}
           </div>
         </div>
+
+        {/* AI Suggestions */}
+        {isAIConfigured() && (
+          <div className={styles.aiSection}>
+            <div className={styles.aiHeader}>
+              <span className={styles.aiIcon}>✨</span>
+              <div>
+                <h3 className={styles.aiTitle}>Sugestões personalizadas</h3>
+                <p className={styles.aiDescription}>
+                  Nossa IA sugere habilidades baseadas no seu perfil.
+                </p>
+              </div>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handleGetAISuggestions}
+                loading={isLoadingAI}
+              >
+                Sugerir
+              </Button>
+            </div>
+
+            {aiError && (
+              <p className={styles.aiError}>⚠️ {aiError}</p>
+            )}
+
+            {aiSuggestions.length > 0 && (
+              <div className={styles.aiSuggestions}>
+                {aiSuggestions.map((suggestion) => (
+                  <div key={suggestion.name} className={styles.aiSuggestionItem}>
+                    <div className={styles.aiSuggestionContent}>
+                      <span className={styles.aiSuggestionName}>{suggestion.name}</span>
+                      <span className={styles.aiSuggestionReason}>{suggestion.reason}</span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleAddAISuggestion(suggestion)}
+                    >
+                      + Adicionar
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Added skills */}
         {data.length > 0 && (
